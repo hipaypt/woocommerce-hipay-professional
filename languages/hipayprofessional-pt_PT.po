@@ -1,0 +1,351 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce HiPay Professional\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-15 17:59+0000\n"
+"PO-Revision-Date: 2018-03-27 16:04+0000\n"
+"Last-Translator: dferreira <dferreira@hipay.com>\n"
+"Language-Team: Portuguese (Portugal)\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: class-wc-hipayprofessional.php:142
+msgid "Enable/Disable"
+msgstr "Ativar/Desativar"
+
+#: class-wc-hipayprofessional.php:144
+msgid "Activate Hipay Professional payments"
+msgstr "Ativar pagamentos através do Hipay Professional"
+
+#: class-wc-hipayprofessional.php:149
+msgid "Sandbox"
+msgstr "Plataforma de teste"
+
+#: class-wc-hipayprofessional.php:151
+msgid "Use sandbox accounts (Test platform)"
+msgstr "Usar conta de teste (sandbox)"
+
+#: class-wc-hipayprofessional.php:156
+msgid "Default Checkout title"
+msgstr "Título Principal de Checkout "
+
+#: class-wc-hipayprofessional.php:158
+msgid "Payment title during checkout."
+msgstr "Titulo do método de pagamento durante o checkout."
+
+#: class-wc-hipayprofessional.php:159
+msgid "Hipay Professional."
+msgstr "Hipay Professional."
+
+#: class-wc-hipayprofessional.php:162
+msgid "Default Checkout message"
+msgstr "Mensagem Principal de Checkout "
+
+#: class-wc-hipayprofessional.php:164
+msgid "Payment message on the checkout page."
+msgstr "Mensagem na fase de checkout."
+
+#: class-wc-hipayprofessional.php:165
+msgid "Pay with Credit Card or local payment methods."
+msgstr "Pague com cartão de crédito ou métodos de pagamento locais."
+
+#: class-wc-hipayprofessional.php:169
+msgid "Default payment image"
+msgstr "Imagem Principal de Checkout "
+
+#: class-wc-hipayprofessional.php:171
+msgid "Default image used during the checkout process."
+msgstr "Imagem principal usada durante a fase de checkout."
+
+#: class-wc-hipayprofessional.php:173 class-wc-hipayprofessional.php:316
+msgid "VISA + Mastercard + Maestro"
+msgstr "VISA + Mastercard + Maestro"
+
+#: class-wc-hipayprofessional.php:174 class-wc-hipayprofessional.php:319
+msgid "Multibanco + Payshop + VISA + Mastercard + Maestro"
+msgstr "Multibanco + Payshop + VISA + Mastercard + Maestro"
+
+#: class-wc-hipayprofessional.php:175 class-wc-hipayprofessional.php:322
+msgid "Multibanco"
+msgstr "Multibanco"
+
+#: class-wc-hipayprofessional.php:181
+msgid "Default payment window title"
+msgstr "Título Principal na janela de pagamento"
+
+#: class-wc-hipayprofessional.php:183
+msgid "Payment message on the Hipay payment window."
+msgstr "Mensagem na janela de pagamento do Hipay."
+
+#: class-wc-hipayprofessional.php:184
+msgid "Your payment on..."
+msgstr "O seu pagamento na loja..."
+
+#: class-wc-hipayprofessional.php:196
+msgid "Technical Email"
+msgstr "Email técnico"
+
+#: class-wc-hipayprofessional.php:198
+msgid "Receives the notification results."
+msgstr "Recebe via email o resultado das notificações."
+
+#: class-wc-hipayprofessional.php:202
+msgid "Store / Website Logo"
+msgstr "Logo da loja / website"
+
+#: class-wc-hipayprofessional.php:204
+msgid "Logo on the Hipay payment window."
+msgstr "Logo na janela de pagamento do Hipay."
+
+#: class-wc-hipayprofessional.php:209
+msgid "Rating"
+msgstr "Rating"
+
+#: class-wc-hipayprofessional.php:213
+msgid "All ages"
+msgstr "Todas as idades"
+
+#: class-wc-hipayprofessional.php:214
+msgid "+ 18 Years"
+msgstr "+ 18 Anos"
+
+#: class-wc-hipayprofessional.php:215
+msgid "+ 16 Years"
+msgstr "+ 16 Anos"
+
+#: class-wc-hipayprofessional.php:216
+msgid "+ 12 Years"
+msgstr "+ 12 Anos"
+
+#: class-wc-hipayprofessional.php:220
+msgid "Default Language"
+msgstr "Linguagem principal"
+
+#: class-wc-hipayprofessional.php:224 class-wc-hipayprofessional.php:273
+msgid "Portuguese - Portugal"
+msgstr "Português - Portugal"
+
+#: class-wc-hipayprofessional.php:225 class-wc-hipayprofessional.php:274
+msgid "English"
+msgstr "Inglês"
+
+#: class-wc-hipayprofessional.php:226 class-wc-hipayprofessional.php:275
+msgid "English - USA"
+msgstr "Inglês - Americano"
+
+#: class-wc-hipayprofessional.php:227 class-wc-hipayprofessional.php:276
+msgid "Spanish"
+msgstr "Espanhol"
+
+#: class-wc-hipayprofessional.php:228 class-wc-hipayprofessional.php:277
+msgid "Italian"
+msgstr "Italiano"
+
+#: class-wc-hipayprofessional.php:229 class-wc-hipayprofessional.php:278
+msgid "French"
+msgstr "Francês"
+
+#: class-wc-hipayprofessional.php:230 class-wc-hipayprofessional.php:279
+msgid "French - Belgium"
+msgstr "Francês - Bélgica"
+
+#: class-wc-hipayprofessional.php:231 class-wc-hipayprofessional.php:280
+msgid "German"
+msgstr "Alemão"
+
+#: class-wc-hipayprofessional.php:232 class-wc-hipayprofessional.php:281
+msgid "Dutch"
+msgstr "Holandês"
+
+#: class-wc-hipayprofessional.php:233 class-wc-hipayprofessional.php:282
+msgid "Dutch - Belgium"
+msgstr "Holandês - Bélgica"
+
+#: class-wc-hipayprofessional.php:234 class-wc-hipayprofessional.php:283
+msgid "Portuguese - Brazil"
+msgstr "Português - Brasil"
+
+#: class-wc-hipayprofessional.php:235 class-wc-hipayprofessional.php:284
+msgid "Polish"
+msgstr "Polaco"
+
+#: class-wc-hipayprofessional.php:239
+msgid "Minimum amount"
+msgstr "Valor mínimo"
+
+#: class-wc-hipayprofessional.php:241 class-wc-hipayprofessional.php:247
+msgid "Minimum amount to use this payment method."
+msgstr "Valor mínimo para usar este método de pagamento."
+
+#: class-wc-hipayprofessional.php:245
+msgid "Maximum amount"
+msgstr "Valor máximo"
+
+#: class-wc-hipayprofessional.php:251
+msgid "Reduce stock"
+msgstr "Reduzir stock"
+
+#: class-wc-hipayprofessional.php:253
+msgid "Stock is reduced only after payment confirmation."
+msgstr "O stock é reduzido depois da confirmação do pagamento."
+
+#: class-wc-hipayprofessional.php:258
+msgid "Encrypt Key"
+msgstr "Chave de Encriptação"
+
+#: class-wc-hipayprofessional.php:260
+msgid "Do not change after first use."
+msgstr "Não altere depois de gerar pagamentos."
+
+#: class-wc-hipayprofessional.php:298
+msgid "Titles per language"
+msgstr "Títulos por linguagens ativas"
+
+#: class-wc-hipayprofessional.php:308
+msgid "Checkout title"
+msgstr "Título de checkout"
+
+#: class-wc-hipayprofessional.php:310
+msgid "Checkout message"
+msgstr "Mensagem de checkout"
+
+#: class-wc-hipayprofessional.php:311
+msgid "Title on Hipay payment window"
+msgstr "Título na janela de pagamento"
+
+#: class-wc-hipayprofessional.php:312
+msgid "Payment image during checkout"
+msgstr "Imagem durante a fase de Checkout "
+
+#: class-wc-hipayprofessional.php:344
+msgid "Account per Currency"
+msgstr "Conta por moeda"
+
+#: class-wc-hipayprofessional.php:350
+msgid "Currency"
+msgstr "Moeda"
+
+#: class-wc-hipayprofessional.php:351
+msgid "API User"
+msgstr "API User"
+
+#: class-wc-hipayprofessional.php:352
+msgid "API Password"
+msgstr "API Password"
+
+#: class-wc-hipayprofessional.php:353
+msgid "Website ID"
+msgstr "Website ID"
+
+#: class-wc-hipayprofessional.php:354
+msgid "Category ID"
+msgstr "ID da categoria"
+
+#: class-wc-hipayprofessional.php:355
+msgid "Shop ID "
+msgstr "ID da Loja"
+
+#: class-wc-hipayprofessional.php:398
+msgid "+ Add account"
+msgstr "+ Adicionar conta"
+
+#: class-wc-hipayprofessional.php:398
+msgid "Remove selected account(s)"
+msgstr "Remover conta(s) selecionada(s)"
+
+#: class-wc-hipayprofessional.php:531
+msgid "Payments with HiPay Professional"
+msgstr "Pagamentos com Hipay Professional"
+
+#: class-wc-hipayprofessional.php:548
+msgid "SOAP LIB"
+msgstr "SOAP LIB"
+
+#: class-wc-hipayprofessional.php:552
+msgid "Please install and activate SOAP Library."
+msgstr "Por favor instale e ative a livraria SOAP."
+
+#: class-wc-hipayprofessional.php:568
+msgid "SimpleXML"
+msgstr "SimpleXML"
+
+#: class-wc-hipayprofessional.php:571
+msgid "Please install and activate SimpleXML."
+msgstr "Por favor instale e ative a livraria SimpleXML."
+
+#: class-wc-hipayprofessional.php:582
+msgid "Plugin HowTo"
+msgstr "Manuais de Configuração"
+
+#: class-wc-hipayprofessional.php:583
+msgid "English Version"
+msgstr "Versão Inglesa"
+
+#: class-wc-hipayprofessional.php:584
+msgid "Portuguese Version"
+msgstr "Versão Portuguesa"
+
+#: class-wc-hipayprofessional.php:601
+msgid "Please ensure that you have Woocommerce REST API activated."
+msgstr "Por favor confirme que tem a REST API do Woocommerce ativa."
+
+#: class-wc-hipayprofessional.php:616
+msgid "Waiting payment confirmation from Hipay."
+msgstr "Aguarda confirmação de pagamento."
+
+#: class-wc-hipayprofessional.php:642
+msgid "Payment URL:"
+msgstr "Página de pagamento:"
+
+#: class-wc-hipayprofessional.php:844 class-wc-hipayprofessional.php:855
+msgid "Checking transaction on Hipay returned code"
+msgstr "Verificação da transação no Hipay devolveu código"
+
+#: class-wc-hipayprofessional.php:844 class-wc-hipayprofessional.php:855
+#: class-wc-hipayprofessional.php:865 class-wc-hipayprofessional.php:871
+msgid "Status"
+msgstr "Status"
+
+#: class-wc-hipayprofessional.php:848
+msgid "Stock updated after payment."
+msgstr "Stock atualizado depois de pagamento."
+
+#: class-wc-hipayprofessional.php:850
+msgid "Payment successful for transaction"
+msgstr "Pagamento com sucesso para a transação"
+
+#: class-wc-hipayprofessional.php:855
+msgid "Description"
+msgstr "Descrição"
+
+#: class-wc-hipayprofessional.php:865
+msgid "Payment refused. Operation"
+msgstr "Pagamento recusado. Operação"
+
+#: class-wc-hipayprofessional.php:871
+msgid "Authorization OK. Waiting for capture. Operation"
+msgstr "Autorização OK. Aguarda captura. Operação"
+
+#. Name of the plugin
+msgid "WooCommerce HiPay Professional"
+msgstr "WooCommerce HiPay Professional"
+
+#. Description of the plugin
+msgid "WooCommerce Plugin for Hipay Professional."
+msgstr "WooCommerce Plugin for Hipay Professional."
+
+#. URI of the plugin
+msgid "http://www.hipaycomprafacil.com"
+msgstr "http://www.hipaycomprafacil.com"
+
+#. Author of the plugin
+msgid "Hi-Pay Portugal"
+msgstr "Hi-Pay Portugal"
+
+#. Author URI of the plugin
+msgid "https://www.hipaycomprafacil.com"
+msgstr "https://www.hipaycomprafacil.com"
