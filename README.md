@@ -1,2 +1,1 @@
-# hipaypt-professional-woocommerce
-HiPay Professional Plugin for Woocommerce
+# HiPay Professional Plugin for Woocommerce
