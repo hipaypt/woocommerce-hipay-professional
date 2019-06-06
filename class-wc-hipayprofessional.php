@@ -38,7 +38,7 @@ function woocommerce_hipayprofessional_init() {
 			$this->hipay_webservice_sandbox_category_url 	= 'https://test-payment.hipay.com/order/list-categories/id/';			
 			$this->hipay_webservice_live_transaction_url 	= 'https://ws.hipay.com/soap/transaction-v2?wsdl';
 			$this->hipay_webservice_sandbox_transaction_url = 'https://test-ws.hipay.com/soap/transaction-v2?wsdl';
-			$this->hipay_webservice_live_payment_url 		= 'ttps://ws.hipay.com/soap/payment-v2/generate?wsdl';
+			$this->hipay_webservice_live_payment_url 		= 'https://ws.hipay.com/soap/payment-v2/generate?wsdl';
 			$this->hipay_webservice_sandbox_payment_url 	= 'https://test-ws.hipay.com/soap/payment-v2/generate?wsdl';
 
 			$this->has_fields 			= false;
