@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce HiPay Professional
 Plugin URI: http://www.hipaycomprafacil.com
 Description: WooCommerce Plugin for Hipay Professional.
-Version: 1.1.4
+Version: 1.1.5
 Text Domain: hipayprofessional
 Author: Hi-Pay Portugal
 Author URI: https://www.hipaycomprafacil.com
@@ -57,7 +57,17 @@ function woocommerce_hipayprofessional_init() {
 			$this->timeLimitDays 		= $this->get_option('timeLimitDays');
 			$this->authorized_languages = array("pt_PT","en_GB","en_US","es_ES","it_IT","fr_FR", "fr_BE", "de_DE", "nl_NL", "nl_BE", "pt_BR", "pl_PL" );
 			$this->default_language		= $this->get_option('hw_default_language');
-
+			$this->log_activity			= $this->get_option('hw_log_activity');
+			
+			if ( $this->log_activity == "yes" ){
+				if (!file_exists(dirname(__FILE__) . '/logs')) {
+					mkdir(dirname(__FILE__) . '/logs');
+				}
+				if (!file_exists(dirname(__FILE__) . '/logs/index.php')) {
+					file_put_contents(dirname(__FILE__) . '/logs/index.php','<?php exit;');
+				}			
+			}
+				
 			$this->account_details 		= get_option( 'woocommerce_hipay_accounts',
 				array(
 					array(
@@ -134,9 +144,14 @@ function woocommerce_hipayprofessional_init() {
 				UNIQUE KEY id (id)
 				) $charset_collate;";
 
+				
 				require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 				dbDelta($sql);
 
+				if ($this->log_activity == 'yes'){
+					error_log(date('Y-m-d H:i:s') . " => Table create => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
+				}				
+				
 			} 
 
 			$this->form_fields = array(
@@ -263,6 +278,12 @@ function woocommerce_hipayprofessional_init() {
 							'required' => true,
 							'default' => uniqid()
 						),
+			'hw_log_activity' => array(
+							'title' => __( 'Log plugin activity', 'hipayprofessional' ),
+							'type' => 'checkbox',
+							'description' => __( 'Use only for debug purposes.', 'hipayprofessional' ),
+							'default' => 'no'
+						),
 
 			);
 
@@ -284,8 +305,6 @@ function woocommerce_hipayprofessional_init() {
 	        	case 'nl_BE': return __('Dutch - Belgium', 'hipayprofessional' );
 	        	case 'pt_BR': return __('Portuguese - Brazil', 'hipayprofessional' );
 	        	case 'pl_PL': return __('Polish', 'hipayprofessional' );
-
-
 			}
 		}
 
@@ -615,6 +634,10 @@ function woocommerce_hipayprofessional_init() {
 
 			$order = new WC_Order( $order_id );
 
+			if ($this->log_activity == 'yes'){
+				error_log(date('Y-m-d H:i:s') . " => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
+			}				
+
 			$cur_payment_method = get_post_meta( $order->id, '_payment_method', true );
 			if ($cur_payment_method == 'hipayprofessional' && ($order->post->post_status == "wc-pending" || $order->post->post_status == "wc-on-hold") ) 
 				$order->update_status('on-hold', __('Waiting payment confirmation from Hipay.', 'hipayprofessional'));
@@ -631,6 +654,9 @@ function woocommerce_hipayprofessional_init() {
 			global $woocommerce;
 		    global $wpdb;
 
+			if ($this->log_activity == 'yes'){
+				error_log(date('Y-m-d H:i:s') . " => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
+			}
 
 			$order = new WC_Order( $order_id );
 			if ($this->woocommerce_version_check)
@@ -641,6 +667,10 @@ function woocommerce_hipayprofessional_init() {
 			$result = $this->GenerateReference($order_id,$order_total,$order->get_order_key());
 			if ($result->generateResult->code == 0) {
 
+				if ($this->log_activity == 'yes'){
+					error_log(date('Y-m-d H:i:s') . " => " . $result->generateResult->redirectUrl . " => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
+				}				
+				
 				$wpdb->insert( $this->plugin_table, array( 'reference' => $result->generateResult->redirectUrl, 'order_id' => $order_id, 'amount' => $order_total ) );
 				if ($this->stockonpayment != "yes") wc_reduce_stock_levels( $order_id );	//$order->reduce_order_stock();
 				$order->add_order_note(__('Payment URL:', 'hipayprofessional') . " " . $result->generateResult->redirectUrl );
@@ -648,6 +678,10 @@ function woocommerce_hipayprofessional_init() {
 	    		return array('result' 	=> 'success','redirect'	=> 	$result->generateResult->redirectUrl      	);
 		
 			} else {
+				
+				if ($this->log_activity == 'yes'){
+					error_log(date('Y-m-d H:i:s') . " => " . $result->generateResult->description . " => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
+				}					
 				$order->add_order_note($result->generateResult->description );
 				return;
 
@@ -670,6 +704,10 @@ function woocommerce_hipayprofessional_init() {
 
 			global $woocommerce;
 
+			if ($this->log_activity == 'yes'){
+				error_log(date('Y-m-d H:i:s') . " => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
+			}
+			
 			$ws_url = $this->hipay_webservice_live_payment_url;
 			if ($this->sandbox == "yes")
 				$ws_url = $this->hipay_webservice_sandbox_payment_url;
@@ -754,7 +792,10 @@ function woocommerce_hipayprofessional_init() {
 			$order_id = $_GET["order"];
 			$ch = $_GET["ch"];
 
-
+			if ($this->log_activity == 'yes'){
+				error_log(date('Y-m-d H:i:s') . " => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
+			}
+			
 			if ($ch == sha1($this->salt.$order_id)){
 
 				try
@@ -884,7 +925,9 @@ function woocommerce_hipayprofessional_init() {
 					$error = $e->getMessage();
 					$order = new WC_Order( $order_id );
 					$order->add_order_note($error);
-
+					if ($this->log_activity == 'yes'){
+						error_log(date('Y-m-d H:i:s') . " => " .$error . " => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
+					}
 					return false;
 				}
 
@@ -904,13 +947,18 @@ function woocommerce_hipayprofessional_init() {
 		global $woocommerce;
 		global $wpdb;
 
+		$plugin_option =get_option( 'woocommerce_hipayprofessional_settings');
+
+		if ($plugin_option['hw_log_activity'] == 'yes'){
+			error_log(date('Y-m-d H:i:s') . " => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
+		}
+		
 		if (isset($woocommerce->cart)){
 
-			$plugin_option =get_option( 'woocommerce_hipayprofessional_settings');
 			$hw_min_value = $plugin_option['hw_min_value'];
 			$hw_max_value = $plugin_option['hw_max_value'];
 
-			$account_currencies =get_option( 'woocommerce_hipay_accounts');
+			$account_currencies = get_option( 'woocommerce_hipay_accounts');
 			$current_currency = get_woocommerce_currency();
 						
 			if (array_key_exists($current_currency, $account_currencies)) {
@@ -923,11 +971,21 @@ function woocommerce_hipayprofessional_init() {
 				$decimals_sep = wp_specialchars_decode(stripslashes(get_option( 'woocommerce_price_decimal_sep')), ENT_QUOTES);
 				if ( $decimals_sep != ".") $total_amount = str_replace($decimals_sep,".", $total_amount);
 				$total_amount = floatval( preg_replace( '#[^\d.]#', '',  $total_amount) );
-				if ($total_amount > $hw_max_value || $total_amount < $hw_min_value ) unset($methods['hipayprofessional']); 
-
+				if ($total_amount > $hw_max_value || $total_amount < $hw_min_value ) {
+					if ($plugin_option['hw_log_activity'] == 'yes'){
+						error_log(date('Y-m-d H:i:s') . " => Amount not permitted => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
+					}
+					unset($methods['hipayprofessional']); 
+				}
+				elseif ($plugin_option['hw_log_activity'] == 'yes'){
+					error_log(date('Y-m-d H:i:s') . " => Currency matches. Method is available " . $total_amount . " " . $hw_max_value . " " . $hw_min_value  . " => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
+				}
 
 			} else
 			{
+				if ($plugin_option['hw_log_activity'] == 'yes'){
+					error_log(date('Y-m-d H:i:s') . " => Currency does not match . " . $current_currency . " => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
+				}
 				unset($methods['hipayprofessional']); 
 			}
 		}
@@ -955,10 +1013,16 @@ function woocommerce_hipayprofessional_init() {
 		if ( $cur_payment_method == 'hipayprofessional' ) {
 
 			$plugin_option =get_option( 'woocommerce_hipayprofessional_settings');
+			if ($plugin_option['hw_log_activity'] == 'yes'){
+				error_log(date('Y-m-d H:i:s') . " => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
+			}			
+
 			if ($plugin_option['stockonpayment'] == "no"){
 
 				$products = $order->get_items();
-
+				if ($plugin_option['hw_log_activity'] == 'yes'){
+					error_log(date('Y-m-d H:i:s') . " => Update stocks on cancel => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
+				}
 				foreach ( $products as $product ) 
 				{
 
