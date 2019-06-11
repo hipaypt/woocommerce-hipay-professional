@@ -973,7 +973,7 @@ function woocommerce_hipayprofessional_init() {
 				$total_amount = floatval( preg_replace( '#[^\d.]#', '',  $total_amount) );
 				if ($total_amount > $hw_max_value || $total_amount < $hw_min_value ) {
 					if ($plugin_option['hw_log_activity'] == 'yes'){
-						error_log(date('Y-m-d H:i:s') . " => Amount not permitted => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
+						error_log(date('Y-m-d H:i:s') . " => Amount not permitted: " . $total_amount . " for min: " . $hw_min_value . " and max: " . $hw_max_value . " => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
 					}
 					unset($methods['hipayprofessional']); 
 				}
