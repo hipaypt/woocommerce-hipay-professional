@@ -971,7 +971,7 @@ function woocommerce_hipayprofessional_init() {
 				$decimals_sep = wp_specialchars_decode(stripslashes(get_option( 'woocommerce_price_decimal_sep')), ENT_QUOTES);
 				if ( $decimals_sep != ".") $total_amount = str_replace($decimals_sep,".", $total_amount);
 				$total_amount = floatval( preg_replace( '#[^\d.]#', '',  $total_amount) );
-				if ($total_amount > $hw_max_value || $total_amount < $hw_min_value ) {
+				if ( $total_amount > 0 &&  ($total_amount > $hw_max_value || $total_amount < $hw_min_value )) {
 					if ($plugin_option['hw_log_activity'] == 'yes'){
 						error_log(date('Y-m-d H:i:s') . " => Amount not permitted: " . $total_amount . " for min: " . $hw_min_value . " and max: " . $hw_max_value . " => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
 					}
