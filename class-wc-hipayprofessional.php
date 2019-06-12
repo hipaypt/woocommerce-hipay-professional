@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce HiPay Professional
 Plugin URI: http://www.hipaycomprafacil.com
 Description: WooCommerce Plugin for Hipay Professional.
-Version: 1.1.6
+Version: 1.1.7
 Text Domain: hipayprofessional
 Author: Hi-Pay Portugal
 Author URI: https://www.hipaycomprafacil.com
