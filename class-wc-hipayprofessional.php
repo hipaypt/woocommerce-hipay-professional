@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: WooCommerce HiPay Professional
-Plugin URI: http://www.hipaycomprafacil.com
+Plugin URI: https://github.com/hipaypt/woocommerce-hipay-professional
 Description: WooCommerce Plugin for Hipay Professional.
-Version: 1.1.7
+Version: 1.1.8
 Text Domain: hipayprofessional
-Author: Hi-Pay Portugal
-Author URI: https://www.hipaycomprafacil.com
+Author: HiPay Portugal
+Author URI: https://github.com/hipaypt
 */
 
 add_action('plugins_loaded', 'woocommerce_hipayprofessional_init', 0);
@@ -198,7 +198,7 @@ function woocommerce_hipayprofessional_init() {
 							'title' => __( 'Default payment window title', 'hipayprofessional' ),
 							'type' => 'text',
 							'description' => __( 'Payment message on the Hipay payment window.', 'hipayprofessional' ),
-							'default' => __( 'Your payment on...', 'hipayprofessional' )
+							'default' => __( '#%s', 'hipayprofessional' )
 						),
 
 			'language_details' => array(
@@ -511,11 +511,26 @@ function woocommerce_hipayprofessional_init() {
 
 			$languages = array();	
 
-			$hp_m_title   			= array_map( 'wc_clean', $_POST['hp_m_title'] );
-			$hp_m_description   	= array_map( 'wc_clean', $_POST['hp_m_description'] );
-			$hp_m_title_payments   	= array_map( 'wc_clean', $_POST['hp_m_title_payments'] );
-			$hp_m_logo   			= array_map( 'wc_clean', $_POST['hp_m_logo'] );
-
+			if (isset($_POST['hp_m_title']))
+				$hp_m_title   			= array_map( 'wc_clean', $_POST['hp_m_title'] );
+			else 
+				$hp_m_title = "";
+			
+			if (isset($_POST['hp_m_description']))
+				$hp_m_description   	= array_map( 'wc_clean', $_POST['hp_m_description'] );
+			else
+				$hp_m_description  = "";
+			
+			if (isset($_POST['hp_m_title_payments']))
+				$hp_m_title_payments   	= array_map( 'wc_clean', $_POST['hp_m_title_payments'] );
+			else  
+				$hp_m_title_payments   	="";
+			
+			if (isset($_POST['hp_m_logo']))		
+				$hp_m_logo   			= array_map( 'wc_clean', $_POST['hp_m_logo'] );
+            else 
+				$hp_m_logo   			="";
+			
 			foreach ( $this->authorized_languages as $language ) {
 
 				if (isset($hp_m_title[$language])){					
@@ -738,7 +753,8 @@ function woocommerce_hipayprofessional_init() {
 				$ip=$_SERVER['REMOTE_ADDR'];
 				$currentDate = date('Y-m-dTH:i:s');
 				$uid = md5($currentDate.uniqid());
-
+				$title_payment_window = sprintf($this->title_payment_window,$order_id);
+				
 				$parameters = new stdClass(); 
 				$parameters->parameters = array(
 					'wsLogin' => $account["hp_m_username"],
@@ -751,7 +767,7 @@ function woocommerce_hipayprofessional_init() {
 					'locale' => $language,
 					'customerIpAddress' => $ip,
 					'merchantReference' => $order_id,
-					'description' => $this->title_payment_window,
+					'description' => $title_payment_window,
 					'executionDate' => $currentDate,
 					'manualCapture' => 0,
 					'customerEmail' => $billing_email,
