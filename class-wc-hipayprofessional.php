@@ -42,7 +42,9 @@ function woocommerce_hipayprofessional_init() {
 			$this->hipay_webservice_sandbox_payment_url 	= 'https://test-ws.hipay.com/soap/payment-v2/generate?wsdl';
 
 			$this->has_fields 			= false;
-			$this->method_title     	= __('HiPay Professional', $this->id );
+			$this->method_title     	= __('HiPay Professional', 'hipayprofessional' );
+			$this->method_description  	= __( 'Pay with Credit Card or local payment methods.', 'hipayprofessional' );
+
 			$this->init_form_fields();
 			$this->init_settings();
 			$this->sandbox 				= $this->get_option('sandbox');
