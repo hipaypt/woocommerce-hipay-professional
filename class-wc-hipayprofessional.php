@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce HiPay Professional
 Plugin URI: https://github.com/hipaypt/woocommerce-hipay-professional
 Description: WooCommerce Plugin for Hipay Professional.
-Version: 1.1.9
+Version: 1.1.10
 Text Domain: hipayprofessional
 Author: HiPay Portugal
 Author URI: https://github.com/hipaypt
@@ -647,7 +647,7 @@ function woocommerce_hipayprofessional_init() {
 		function thanks_page($order_id) {
 
 			global $woocommerce;
-            global $myref;
+            		global $myref;
 
 			$order = new WC_Order( $order_id );
 
@@ -669,7 +669,7 @@ function woocommerce_hipayprofessional_init() {
 	    function process_payment( $order_id ) {
 
 			global $woocommerce;
-		    global $wpdb;
+		    	global $wpdb;
 
 			if ($this->log_activity == 'yes'){
 				error_log(date('Y-m-d H:i:s') . " => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
@@ -730,7 +730,11 @@ function woocommerce_hipayprofessional_init() {
 				$ws_url = $this->hipay_webservice_sandbox_payment_url;
 
 			$ch = sha1($this->salt.$order_id);
-			$callback_url = site_url().'/wc-api/WC_HipayProfessional/?order=' . $order_id . "&" . "ch=" . $ch;
+			$permalink_structure = get_option( 'permalink_structure' );		
+			if ($permalink_structure == "")
+				$callback_url = site_url().'?wc-api=WC_HipayProfessional&order=' . $order_id . "&" . "ch=" . $ch;
+			else
+				$callback_url = site_url().'/wc-api/WC_HipayProfessional/?order=' . $order_id . "&" . "ch=" . $ch;
 
 			$order = new WC_Order( $order_id );              
 			$billing_email = $order->get_billing_email(); 
@@ -740,10 +744,10 @@ function woocommerce_hipayprofessional_init() {
 
 			$freedata = array();
 
-		    $freedata[] = array(
-		    'key' => 'order_key',
-		      'value' => $order_key
-		    );
+			$freedata[] = array(
+		    		'key' => 'order_key',
+		      		'value' => $order_key
+		    	);
 
 			try
 			{
