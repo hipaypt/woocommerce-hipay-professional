@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce HiPay Professional
 Plugin URI: https://github.com/hipaypt/woocommerce-hipay-professional
 Description: WooCommerce Plugin for Hipay Professional.
-Version: 1.1.10
+Version: 1.1.11
 Text Domain: hipayprofessional
 Author: HiPay Portugal
 Author URI: https://github.com/hipaypt
@@ -905,7 +905,7 @@ function woocommerce_hipayprofessional_init() {
 
 						$result = $client->getDetails($parameters);
 						
-						if ($result->getDetailsResult->code == "0" && $result->getDetailsResult->amount == $origAmount && $result->getDetailsResult->currency == $origCurrency && ( strtolower($result->getDetailsResult->transactionStatus) == "captured" || strtolower($result->getDetailsResult->transactionStatus) == "psp_captured") ){
+						if ($result->getDetailsResult->code == "0" && $result->getDetailsResult->amount == $origAmount && $result->getDetailsResult->currency == $origCurrency && ( strtolower($result->getDetailsResult->transactionStatus) == "captured" || strtolower($result->getDetailsResult->transactionStatus) == "psp_captured" || strtolower($result->getDetailsResult->transactionStatus) == "approved") ){
 
 							$order->add_order_note(__('Checking transaction on Hipay returned code', 'hipayprofessional') . ": " .  $result->getDetailsResult->code . " " . __("Status", 'hipayprofessional') . ": " . $result->getDetailsResult->transactionStatus);
 
