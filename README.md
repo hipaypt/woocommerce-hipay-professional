@@ -1,3 +1,3 @@
 # HiPay Professional Plugin for Woocommerce
 
-Latest version 1.1.11
+Latest version 1.1.12
