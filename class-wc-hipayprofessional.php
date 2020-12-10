@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce HiPay Professional
 Plugin URI: https://github.com/hipaypt/woocommerce-hipay-professional
 Description: WooCommerce Plugin for Hipay Professional.
-Version: 1.1.11
+Version: 1.1.12
 Text Domain: hipayprofessional
 Author: HiPay Portugal
 Author URI: https://github.com/hipaypt
@@ -258,13 +258,15 @@ function woocommerce_hipayprofessional_init() {
 							'title' => __( 'Minimum amount', 'hipayprofessional' ),
 							'type' => 'text',
 							'description' => __( 'Minimum amount to use this payment method.', 'hipayprofessional' ),
-							'required' => true
+							'required' => true,
+							'default' => 1
 						),
 			'hw_max_value' => array(
 							'title' => __( 'Maximum amount', 'hipayprofessional' ),
 							'type' => 'text',
 							'description' => __( 'Minimum amount to use this payment method.', 'hipayprofessional' ),
-							'required' => true
+							'required' => true,
+							'default' => 99999
 						),
 			'stockonpayment' => array(
 							'title' => __( 'Reduce stock', 'hipayprofessional' ),
@@ -317,12 +319,12 @@ function woocommerce_hipayprofessional_init() {
 			$authorized_languages = get_available_languages();
 			if (count($authorized_languages) > 0) {
 			?>
-			<tr valign="top">
-				<th scope="row" class="titledesc"><?php _e( 'Titles per language', 'hipayprofessional' ); ?></th>
-				<td class="" id="hipay_languages">
-					<table class="widefat wc_input_table sortable" style="padding:10px;">
-							<tbody class="hipay_languages_table" >
-							<?php
+<tr valign="top">
+    <th scope="row" class="titledesc"><?php _e( 'Titles per language', 'hipayprofessional' ); ?></th>
+    <td class="" id="hipay_languages">
+        <table class="widefat wc_input_table sortable" style="padding:10px;">
+            <tbody class="hipay_languages_table">
+                <?php
 							$i = -1;
 							foreach ( $authorized_languages as $language ) {
 									$i++;
@@ -348,11 +350,11 @@ function woocommerce_hipayprofessional_init() {
 									</tr>';
 							}
 							?>
-						</tbody>
-					</table>
-				</td>
-			</tr>
-			<?php
+            </tbody>
+        </table>
+    </td>
+</tr>
+<?php
 			}
 			return ob_get_clean();
 
@@ -363,23 +365,23 @@ function woocommerce_hipayprofessional_init() {
 
 			ob_start();
 			?>
-			<tr valign="top">
-				<th scope="row" class="titledesc"><?php _e( 'Account per Currency', 'hipayprofessional' ); ?></th>
-				<td class="forminp" id="hipay_accounts">
-					<table class="widefat wc_input_table sortable" cellspacing="0">
-						<thead>
-							<tr>
-								<th class="sort">&nbsp;</th>
-								<th><?php _e( 'Currency', 'hipayprofessional' ); ?></th>
-								<th><?php _e( 'API User', 'hipayprofessional' ); ?></th>
-								<th><?php _e( 'API Password', 'hipayprofessional' ); ?></th>
-								<th><?php _e( 'Website ID', 'hipayprofessional' ); ?></th>
-								<th><?php _e( 'Category ID', 'hipayprofessional' ); ?></th>
-								<th><?php _e( 'Shop ID ', 'hipayprofessional' ); ?></th>
-							</tr>
-						</thead>
-						<tbody class="accounts">
-							<?php
+<tr valign="top">
+    <th scope="row" class="titledesc"><?php _e( 'Account per Currency', 'hipayprofessional' ); ?></th>
+    <td class="forminp" id="hipay_accounts">
+        <table class="widefat wc_input_table sortable" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="sort">&nbsp;</th>
+                    <th><?php _e( 'Currency', 'hipayprofessional' ); ?></th>
+                    <th><?php _e( 'API User', 'hipayprofessional' ); ?></th>
+                    <th><?php _e( 'API Password', 'hipayprofessional' ); ?></th>
+                    <th><?php _e( 'Website ID', 'hipayprofessional' ); ?></th>
+                    <th><?php _e( 'Category ID', 'hipayprofessional' ); ?></th>
+                    <th><?php _e( 'Shop ID ', 'hipayprofessional' ); ?></th>
+                </tr>
+            </thead>
+            <tbody class="accounts">
+                <?php
 							$i = -1;
 							if ( $this->account_details ) {
 								foreach ( $this->account_details as $account ) {
@@ -415,20 +417,23 @@ function woocommerce_hipayprofessional_init() {
 								}
 							}
 							?>
-						</tbody>
-						<tfoot>
-							<tr>
-								<th colspan="7"><a href="#" class="add button"><?php _e( '+ Add account', 'hipayprofessional' ); ?></a> <a href="#" class="remove_rows button"><?php _e( 'Remove selected account(s)', 'hipayprofessional' ); ?></a></th>
-							</tr>
-						</tfoot>
-					</table>
-					<script type="text/javascript">
-						jQuery(function() {
-							jQuery('#hipay_accounts').on( 'click', 'a.add', function(){
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="7"><a href="#"
+                            class="add button"><?php _e( '+ Add account', 'hipayprofessional' ); ?></a> <a href="#"
+                            class="remove_rows button"><?php _e( 'Remove selected account(s)', 'hipayprofessional' ); ?></a>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+        <script type="text/javascript">
+        jQuery(function() {
+            jQuery('#hipay_accounts').on('click', 'a.add', function() {
 
-								var size = jQuery('#hipay_accounts').find('tbody .account').length;
+                var size = jQuery('#hipay_accounts').find('tbody .account').length;
 
-								jQuery('<tr class="account">\
+                jQuery('<tr class="account">\
 										<td class="sort"></td>\
 										<td><select name="hp_m_currency[' + size + ']" ><option value="EUR">Euro</option><option value="GBP">British Pound</option><option value="USD">American Dolar</option><option value="AUD">Australian Dolar</option><option value="CAD">Canadian Dolar</option><option value="SEK">Swedish Krona</option><option value="PLN">Polish Zloty</option><option value="CHF">Swiss Franc</option></select></td>\
 										<td><input type="text" name="hp_m_username[' + size + ']" /></td>\
@@ -438,13 +443,13 @@ function woocommerce_hipayprofessional_init() {
 										<td><input type="text" name="hp_m_store[' + size + ']" /></td>\
 									</tr>').appendTo('#hipay_accounts table tbody');
 
-								return false;
-							});
-						});
-					</script>
-				</td>
-			</tr>
-			<?php
+                return false;
+            });
+        });
+        </script>
+    </td>
+</tr>
+<?php
 			return ob_get_clean();
 
 		}
@@ -568,79 +573,82 @@ function woocommerce_hipayprofessional_init() {
 			
 				
 			?>
-			<h3><?php _e('Payments with HiPay Professional', 'hipayprofessional'); ?></h3>
-			<p></p>
+<h3><?php _e('Payments with HiPay Professional', 'hipayprofessional'); ?></h3>
+<p></p>
 
-			<table class="wc_emails widefat" cellspacing="0">
-			<tbody>
-			<tr>
-				<td class="wc-email-settings-table-status">
-					<?php
+<table class="wc_emails widefat" cellspacing="0">
+    <tbody>
+        <tr>
+            <td class="wc-email-settings-table-status">
+                <?php
 					if ($soap_active){ ?>
-						<span class="status-enabled"></span>
-					<?php
+                <span class="status-enabled"></span>
+                <?php
 					} else	{ ?>
-						<span class="status-disabled"></span>
-					<?php
+                <span class="status-disabled"></span>
+                <?php
 					}	?>
-				</td>
+            </td>
 
-				<td class="wc-email-settings-table-name"><?php _e( 'SOAP LIB', 'hipayprofessional' ); ?></td>
-				
-				<td>
-                    <?php
+            <td class="wc-email-settings-table-name"><?php _e( 'SOAP LIB', 'hipayprofessional' ); ?></td>
+
+            <td>
+                <?php
 					if (!$soap_active) _e( 'Please install and activate SOAP Library.', 'hipayprofessional' );       
 					?>
-				</td>
-			</tr>
+            </td>
+        </tr>
 
-			<tr>
-				<td class="wc-email-settings-table-status">
-					<?php
+        <tr>
+            <td class="wc-email-settings-table-status">
+                <?php
 					if ($simplexml_active){ ?>
-						<span class="status-enabled"></span>
-					<?php
+                <span class="status-enabled"></span>
+                <?php
 					} else	{ ?>
-						<span class="status-disabled"></span>
-					<?php
+                <span class="status-disabled"></span>
+                <?php
 					}	?>
-				</td>
-				<td class="wc-email-settings-table-name"><?php _e( 'SimpleXML', 'hipayprofessional' ); ?></td>
-				<td>
-                    <?php
+            </td>
+            <td class="wc-email-settings-table-name"><?php _e( 'SimpleXML', 'hipayprofessional' ); ?></td>
+            <td>
+                <?php
 					if (!$simplexml_active) _e( 'Please install and activate SimpleXML.', 'hipayprofessional' );       
 					?>
-				</td>
-			</tr>
+            </td>
+        </tr>
 
 
-			<tr>
-				<td class="wc-email-settings-table-status">
-					
-				</td>
-				<td class="wc-email-settings-table-name">
-					<?php _e( 'Plugin HowTo', 'hipayprofessional' ); ?><br>
-					<a href="<?php echo WP_PLUGIN_URL . "/" . plugin_basename( dirname(__FILE__)) . '/docs/WOOCOMMERCE_HIPAY_PROFESSIONAL_EN.pdf'?>" target="_blank"><?php _e( 'English Version', 'hipayprofessional' ); ?></a><br>
-					<a href="<?php echo WP_PLUGIN_URL . "/" . plugin_basename( dirname(__FILE__)) . '/docs/WOOCOMMERCE_HIPAY_PROFESSIONAL_PT.pdf'?>" target="_blank"><?php _e( 'Portuguese Version', 'hipayprofessional' ); ?></a>
+        <tr>
+            <td class="wc-email-settings-table-status">
 
-				</td>
-				<td alig="left">
-                    					
-				</td>
-			</tr>
+            </td>
+            <td class="wc-email-settings-table-name">
+                <?php _e( 'Plugin HowTo', 'hipayprofessional' ); ?><br>
+                <a href="<?php echo WP_PLUGIN_URL . "/" . plugin_basename( dirname(__FILE__)) . '/docs/WOOCOMMERCE_HIPAY_PROFESSIONAL_EN.pdf'?>"
+                    target="_blank"><?php _e( 'English Version', 'hipayprofessional' ); ?></a><br>
+                <a href="<?php echo WP_PLUGIN_URL . "/" . plugin_basename( dirname(__FILE__)) . '/docs/WOOCOMMERCE_HIPAY_PROFESSIONAL_PT.pdf'?>"
+                    target="_blank"><?php _e( 'Portuguese Version', 'hipayprofessional' ); ?></a>
+
+            </td>
+            <td alig="left">
+
+            </td>
+        </tr>
 
 
-			</tbody></table>
+    </tbody>
+</table>
 
-			<table class="form-table">
-			<?php
+<table class="form-table">
+    <?php
 			$this->generate_settings_html();
 			?>
-			</table>
+</table>
 
-			<p><?php _e('Please ensure that you have Woocommerce REST API activated.', 'hipayprofessional'); ?></p>
-			
-			<?php
+<p><?php _e('Please ensure that you have Woocommerce REST API activated.', 'hipayprofessional'); ?></p>
+
+<?php
 		}
 
 
@@ -748,6 +756,13 @@ function woocommerce_hipayprofessional_init() {
 		    		'key' => 'order_key',
 		      		'value' => $order_key
 		    	);
+			
+			$order_check = sha1($order_id.$account["hp_m_password"]);
+			$freedata[] = array(
+		    		'key' => 'order_check',
+		      		'value' => $order_check
+		    	);
+
 
 			try
 			{
@@ -802,8 +817,6 @@ function woocommerce_hipayprofessional_init() {
 
 
 		}
-
-	
 
 
 		function check_callback_response() {
@@ -887,45 +900,16 @@ function woocommerce_hipayprofessional_init() {
 
 						$order = new WC_Order( $order_id );
 	
-						$ws_url = $this->hipay_webservice_live_transaction_url;
-						if ($this->sandbox == "yes")
-							$ws_url = $this->hipay_webservice_sandbox_transaction_url;
-
-						$account = $this->account_details[$origCurrency];
-
-						$client = new SoapClient($ws_url);
-
-						$parameters = new stdClass(); 
-						$parameters->parameters = array(
-							'wsLogin' => $account["hp_m_username"],
-							'wsPassword' => $account["hp_m_password"],
-							'transactionPublicId' => $transid
-						);					
-
-
-						$result = $client->getDetails($parameters);
-						
-						if ($result->getDetailsResult->code == "0" && $result->getDetailsResult->amount == $origAmount && $result->getDetailsResult->currency == $origCurrency && ( strtolower($result->getDetailsResult->transactionStatus) == "captured" || strtolower($result->getDetailsResult->transactionStatus) == "psp_captured" || strtolower($result->getDetailsResult->transactionStatus) == "approved") ){
-
-							$order->add_order_note(__('Checking transaction on Hipay returned code', 'hipayprofessional') . ": " .  $result->getDetailsResult->code . " " . __("Status", 'hipayprofessional') . ": " . $result->getDetailsResult->transactionStatus);
-
-							if ($this->stockonpayment == "yes") {
+						if ($this->stockonpayment == "yes") {
 								wc_reduce_stock_levels( $order_id );
 								$order->add_order_note(__('Stock updated after payment.', 'hipayprofessional') );
-							}
-							$order->update_status('processing', __("Payment successful for transaction", 'hipayprofessional' ) . " " . $transid, 0 );
-							$wpdb->update( $wpdb->prefix . 'woocommerce_hipayprofessional' , array( 'status' => $status,'operation' => $operation,'processed' => 1, 'processed_date' => date('Y-m-d H:i:s')), array('order_id' =>$order_id, 'processed' => 0 ) );
+						}
+						$order->update_status('processing', __("Payment successful for transaction", 'hipayprofessional' ) . " " . $transid, 0 );
+						$wpdb->update( $wpdb->prefix . 'woocommerce_hipayprofessional' , array( 'status' => $status,'operation' => $operation,'processed' => 1, 'processed_date' => date('Y-m-d H:i:s')), array('order_id' =>$order_id, 'processed' => 0 ) );
 
-						} else {
+					} elseif ($status=="waiting" && $operation == "authorization") {
 
-							$order->add_order_note(__('Checking transaction on Hipay returned code', 'hipayprofessional') . ": " .  $result->getDetailsResult->code . " " . __("Status", 'hipayprofessional') . ": " . $result->getDetailsResult->transactionStatus . " " . __("Description", 'hipayprofessional') . ": " . $result->getDetailsResult->description) ;
-
-						}	
-
-					}
-					elseif ($status=="waiting" || $operation == "authorization") {
-
-                        $order = new WC_Order( $order_id );
+						$order = new WC_Order( $order_id );
                         $order->add_order_note(__('Authorization OK. Waiting for capture. Operation', 'hipayprofessional') . ": " .  $operation . " " . __("Status", 'hipayprofessional') . ": " . $status);
 
 					} elseif ($status!="ok" || $operation != "authorization") {
