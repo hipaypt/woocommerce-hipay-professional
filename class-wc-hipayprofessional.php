@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce HiPay Professional
 Plugin URI: https://github.com/hipaypt/woocommerce-hipay-professional
 Description: WooCommerce Plugin for Hipay Professional.
-Version: 1.1.12
+Version: 1.1.13
 Text Domain: hipayprofessional
 Author: HiPay Portugal
 Author URI: https://github.com/hipaypt
@@ -767,7 +767,23 @@ function woocommerce_hipayprofessional_init() {
 			try
 			{
 
-				$client = new SoapClient($ws_url);
+				$contextOptions = array(
+					'ssl' => array(
+					'verify_peer' => false,
+					'verify_peer_name' => false,
+					'allow_self_signed' => true
+					));
+
+				$sslContext = stream_context_create($contextOptions);
+
+				$soapParams =  array(
+					'trace' => 1,
+					'exceptions' => true,
+					'cache_wsdl' => WSDL_CACHE_NONE,
+					'stream_context' => $sslContext
+					);
+
+				$client = new SoapClient($ws_url,$soapParams);
 
 				$language = $this->hipay_professional_get_locale();
 
@@ -810,6 +826,7 @@ function woocommerce_hipayprofessional_init() {
 
 			}
 			catch (Exception $e){
+				$result = new \stdClass;
 				$result->generateResult->code = -1;
 				$result->generateResult->description = $e->getMessage();
 				return $result;
