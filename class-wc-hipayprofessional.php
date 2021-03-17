@@ -921,7 +921,7 @@ function woocommerce_hipayprofessional_init() {
 								wc_reduce_stock_levels( $order_id );
 								$order->add_order_note(__('Stock updated after payment.', 'hipayprofessional') );
 						}
-						$order->payment_update($transid);
+						$order->payment_complete($transid);
 						$wpdb->update( $wpdb->prefix . 'woocommerce_hipayprofessional' , array( 'status' => $status,'operation' => $operation,'processed' => 1, 'processed_date' => date('Y-m-d H:i:s')), array('order_id' =>$order_id, 'processed' => 0 ) );
 
 					} elseif ($status=="waiting" && $operation == "authorization") {
