@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce HiPay Professional
 Plugin URI: https://github.com/hipaypt/woocommerce-hipay-professional
 Description: WooCommerce Plugin for Hipay Professional.
-Version: 1.1.13
+Version: 1.1.14
 Text Domain: hipayprofessional
 Author: HiPay Portugal
 Author URI: https://github.com/hipaypt
@@ -921,7 +921,7 @@ function woocommerce_hipayprofessional_init() {
 								wc_reduce_stock_levels( $order_id );
 								$order->add_order_note(__('Stock updated after payment.', 'hipayprofessional') );
 						}
-						$order->update_status('processing', __("Payment successful for transaction", 'hipayprofessional' ) . " " . $transid, 0 );
+						$order->payment_update($transid);
 						$wpdb->update( $wpdb->prefix . 'woocommerce_hipayprofessional' , array( 'status' => $status,'operation' => $operation,'processed' => 1, 'processed_date' => date('Y-m-d H:i:s')), array('order_id' =>$order_id, 'processed' => 0 ) );
 
 					} elseif ($status=="waiting" && $operation == "authorization") {
