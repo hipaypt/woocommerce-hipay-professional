@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce HiPay Professional
 Plugin URI: https://github.com/hipaypt/woocommerce-hipay-professional
 Description: WooCommerce Plugin for Hipay Professional.
-Version: 1.1.14
+Version: 1.1.15
 Text Domain: hipayprofessional
 Author: HiPay Portugal
 Author URI: https://github.com/hipaypt
@@ -982,6 +982,8 @@ function woocommerce_hipayprofessional_init() {
 			$hw_max_value = $plugin_option['hw_max_value'];
 
 			$account_currencies = get_option( 'woocommerce_hipay_accounts');
+			if (!$account_currencies) $account_currencies = [];
+			
 			$current_currency = get_woocommerce_currency();
 						
 			if (array_key_exists($current_currency, $account_currencies)) {
