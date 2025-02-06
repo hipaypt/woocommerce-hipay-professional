@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce HiPay Professional
 Plugin URI: https://github.com/hipaypt/woocommerce-hipay-professional
 Description: WooCommerce Plugin for Hipay Professional.
-Version: 1.1.15
+Version: 1.1.16
 Text Domain: hipayprofessional
 Author: HiPay Portugal
 Author URI: https://github.com/hipaypt
@@ -663,7 +663,7 @@ function woocommerce_hipayprofessional_init() {
 				error_log(date('Y-m-d H:i:s') . " => " .__FUNCTION__. PHP_EOL,3,dirname(__FILE__) . '/logs/' . date('Y-m-d'). '.log');
 			}				
 
-			$cur_payment_method = get_post_meta( $order->id, '_payment_method', true );
+			$cur_payment_method = $order->get_payment_method();
 			if ($cur_payment_method == 'hipayprofessional' && ($order->post->post_status == "wc-pending" || $order->post->post_status == "wc-on-hold") ) 
 				$order->update_status('on-hold', __('Waiting payment confirmation from Hipay.', 'hipayprofessional'));
 
@@ -1033,7 +1033,7 @@ function woocommerce_hipayprofessional_init() {
 
 		$wpdb->update( $wpdb->prefix . 'woocommerce_hipayprofessional' , array( 'status' => 'ok','operation' => 'cancelled','processed' => 1, 'processed_date' => date('Y-m-d H:i:s')), array('order_id' =>$order_id, 'processed' => 0 ) );
 
-		$cur_payment_method = get_post_meta( $order_id, '_payment_method', true );
+		$cur_payment_method = $order->get_payment_method();
 
 		if ( $cur_payment_method == 'hipayprofessional' ) {
 
@@ -1082,5 +1082,15 @@ function woocommerce_hipayprofessional_init() {
 	add_filter('woocommerce_payment_gateways', 'add_hipayprofessional_gateway' );
 	add_action('woocommerce_order_status_pending_to_cancelled', 'update_stocks_cancelled_order', 10, 2 );
 	add_action('woocommerce_order_status_pending_to_failed', 'update_stocks_cancelled_order', 10, 2 );
+
+	add_action('woocommerce_blocks_loaded', function() {
+
+		if (class_exists('Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType')) {
+			require_once  'includes/wc_hipayprofessional_blocks_integration.php';
+			add_action('woocommerce_blocks_payment_method_type_registration', function($registry) {
+				$registry->register(new WC_HiPayProfessional_Blocks_Integration());
+			});
+		}
+	});	
 
 }
